@@ -1,31 +1,25 @@
 import {Command, flags} from '@oclif/command'
 
-export default class Hello extends Command {
-  static description = 'describe the command here'
+export default class Search extends Command {
+  static description = 'search one or more hyperactiv.st sources'
 
   static examples = [
-    `$ okso hello
-hello world from ./src/hello.ts!
+    `$ okso search "generative coding" > results.json
 `,
   ]
 
   static flags = {
     help: flags.help({char: 'h'}),
-    // flag with a value (-n, --name=VALUE)
-    name: flags.string({char: 'n', description: 'name to print'}),
-    // flag with no value (-f, --force)
-    force: flags.boolean({char: 'f'}),
+    // flag with a value (-q, --query=VALUE)
+    query: flags.string({char: 'q', description: 'query to search'})
   }
 
-  static args = [{name: 'file'}]
+  static args = [{query: 'string'}]
 
   async run() {
-    const {args, flags} = this.parse(Hello)
+    const {args, flags} = this.parse(Search)
 
-    const name = flags.name ?? 'world'
-    this.log(`hello ${name} from ./src/commands/hello.ts`)
-    if (args.file && flags.force) {
-      this.log(`you input --force and --file: ${args.file}`)
-    }
+    const query = flags.query ?? 'type:TODO '
+    this.log(`hello ${query} from ./src/commands/hello.ts`)
   }
 }
